@@ -1,9 +1,10 @@
 import './App.css';
+import BlogPost from './pages/BlogPost';
 
 function App() {
   return (
     <div className="App">
-      Welcome to the Timer by Manas Pant
+      <BlogPost />
     </div>
   );
 }
