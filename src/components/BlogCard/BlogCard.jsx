@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import BlogCardTitle from "../BlogCardTitle/BlogCardTitle";
-import BlogCardContent from "../BlogCardContent/BlogCardContent";
+import BlogCardTitle from "./components/BlogCardTitle/BlogCardTitle";
+import BlogCardContent from "./components/BlogCardContent/BlogCardContent";
 import BlogCardAuthor from "./components/BlogCardAuthor/BlogCardAuthor";
 
 const BlogCard = ({ title, content, authorId }) => {
