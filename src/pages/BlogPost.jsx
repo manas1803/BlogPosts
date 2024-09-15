@@ -6,20 +6,25 @@ import { getAllBlogs } from "../features/blogs/blogsSlice";
 
 const BlogPost = () => {
   const allBlogs = useSelector((state) => getAllBlogs(state));
-
+  const orderedBlogs = allBlogs.slice().sort((a, b) => b.date.localeCompare(a.date));
   return (
     <>
       <Container>
-          {allBlogs &&
-            allBlogs.map((blog) => {
-              return (
-                <Row key={blog.id}>
+        {allBlogs &&
+          orderedBlogs.map((blog) => {
+            return (
+              <Row key={blog.id}>
                 <Col>
-                  <BlogCard title={blog?.title} content={blog?.content} authorId={blog?.author}/>
+                  <BlogCard
+                    title={blog?.title}
+                    content={blog?.content}
+                    authorId={blog?.author}
+                    timeStamp={blog?.date}
+                  />
                 </Col>
-                </Row>
-              );
-            })}
+              </Row>
+            );
+          })}
       </Container>
     </>
   );
