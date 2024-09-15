@@ -1,17 +1,20 @@
-import React from 'react'
-import { Card } from 'react-bootstrap'
+import React from "react";
+import { Card } from "react-bootstrap";
+import BlogCardTitle from "../BlogCardTitle/BlogCardTitle";
+import BlogCardContent from "../BlogCardContent/BlogCardContent";
+import BlogCardAuthor from "./components/BlogCardAuthor/BlogCardAuthor";
 
-const BlogCard = ({title,content}) => {
+const BlogCard = ({ title, content, authorId }) => {
+  
   return (
-    <Card style={{ width: '20rem' }}>
+    <Card style={{ width: "20rem" }}>
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>
-          {content}
-        </Card.Text>
+        <BlogCardTitle title={title} />
+        <BlogCardContent content={content} />
+        <BlogCardAuthor authorId={authorId} />
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default BlogCard
+export default BlogCard;

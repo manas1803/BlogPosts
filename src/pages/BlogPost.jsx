@@ -1,21 +1,21 @@
 import React from "react";
-import { getAllPosts } from "../features/posts/PostSlice";
 import { useSelector } from "react-redux";
 import { Col, Container, Row } from "react-bootstrap";
 import BlogCard from "../components/BlogCard/BlogCard";
+import { getAllBlogs } from "../features/blogs/blogsSlice";
 
 const BlogPost = () => {
-  const allPosts = useSelector((state) => getAllPosts(state));
-  console.log(allPosts);
+  const allBlogs = useSelector((state) => getAllBlogs(state));
+
   return (
     <>
       <Container>
-          {allPosts?.posts &&
-            allPosts?.posts.map((post) => {
+          {allBlogs &&
+            allBlogs.map((blog) => {
               return (
-                <Row>
+                <Row key={blog.id}>
                 <Col>
-                  <BlogCard title={post?.title} content={post?.content} />
+                  <BlogCard title={blog?.title} content={blog?.content} authorId={blog?.author}/>
                 </Col>
                 </Row>
               );
