@@ -6,7 +6,9 @@ import { getAllBlogs } from "../features/blogs/blogsSlice";
 
 const BlogPost = () => {
   const allBlogs = useSelector((state) => getAllBlogs(state));
-  const orderedBlogs = allBlogs.slice().sort((a, b) => b.date.localeCompare(a.date));
+  const orderedBlogs = allBlogs
+    .slice()
+    .sort((a, b) => b.date.localeCompare(a.date));
   return (
     <>
       <Container>
@@ -16,10 +18,7 @@ const BlogPost = () => {
               <Row key={blog.id}>
                 <Col>
                   <BlogCard
-                    title={blog?.title}
-                    content={blog?.content}
-                    authorId={blog?.author}
-                    timeStamp={blog?.date}
+                    blog={blog}
                   />
                 </Col>
               </Row>
