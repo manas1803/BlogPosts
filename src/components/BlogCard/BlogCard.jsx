@@ -4,9 +4,10 @@ import BlogCardTitle from "./components/BlogCardTitle/BlogCardTitle";
 import BlogCardContent from "./components/BlogCardContent/BlogCardContent";
 import BlogCardAuthor from "./components/BlogCardAuthor/BlogCardAuthor";
 import BlogCardTimeAgo from "./components/BlogCardTimeAgo/BlogCardTimeAgo";
+import BlogReactionButtons from "./components/BlogReactionButtons/BlogReactionButtons";
 
-const BlogCard = ({ title, content, authorId,timeStamp }) => {
-  
+const BlogCard = ({blog}) => {
+  const { title, content, authorId,timeStamp } = blog
   return (
     <Card style={{ width: "20rem" }}>
       <Card.Body>
@@ -14,6 +15,7 @@ const BlogCard = ({ title, content, authorId,timeStamp }) => {
         <BlogCardContent content={content} />
         <BlogCardAuthor authorId={authorId} />
         <BlogCardTimeAgo timeStamp={timeStamp} />
+        <BlogReactionButtons blog={blog}/>
       </Card.Body>
     </Card>
   );

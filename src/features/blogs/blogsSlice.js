@@ -8,12 +8,24 @@ const initialState = {
       title: "Learning React",
       content: "React is powerful",
       date: sub(new Date(), { minutes: 10 }).toISOString(),
+      reactions:{
+        thumbsUp:0,
+        clap:0,
+        heart:0,
+        thumbsDown:0
+      }
     },
     {
       id: "2",
       title: "Learning Redux",
       content: "Redux is powerful",
       date: sub(new Date(), { minutes: 5 }).toISOString(),
+      reactions:{
+        thumbsUp:0,
+        clap:0,
+        heart:0,
+        thumbsDown:0
+      }
     },
   ],
 };
@@ -38,9 +50,18 @@ const blogsSlice = createSlice({
         };
       },
     },
+    addReactions:{
+      reducer:(state,action)=>{
+        const {blogId,reaction} = action.payload
+        const existingBlog = state.blogs.find((blog)=>blog.id===blogId)
+        if(existingBlog){
+          existingBlog.reactions[reaction]++
+        }
+      }
+    }
   },
 });
 
 export const getAllBlogs = (state) => state?.blogsList?.blogs;
-export const { addBlog } = blogsSlice.actions;
+export const { addBlog,addReactions } = blogsSlice.actions;
 export default blogsSlice.reducer;
