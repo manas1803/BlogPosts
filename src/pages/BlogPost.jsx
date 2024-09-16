@@ -7,6 +7,7 @@ import {
   getAllBlogs,
   getBlogStatus,
 } from "../features/blogs/blogsSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 const BlogPost = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const BlogPost = () => {
     if (blogsStatus === "idle") {
       dispatch(fetchBlogs());
     }
-  }, [fetchBlogs, blogsStatus, dispatch]);
+  }, [blogsStatus, dispatch]);
 
   const allBlogs = useSelector((state) => getAllBlogs(state));
   const orderedBlogs = allBlogs
@@ -27,7 +28,7 @@ const BlogPost = () => {
         {allBlogs &&
           orderedBlogs.map((blog) => {
             return (
-              <Row key={blog.id}>
+              <Row key={nanoid()}>
                 <Col>
                   <BlogCard blog={blog} />
                 </Col>
