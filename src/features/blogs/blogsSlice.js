@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
 import axios from "axios";
 import { sub } from "date-fns";
-import { API_URL } from "../../common/constants";
+import { BLOG_API_URL } from "../../common/constants";
 
 const initialState = {
   status: "idle",
@@ -11,7 +11,7 @@ const initialState = {
 
 export const fetchBlogs = createAsyncThunk("blogs/fetchBlogs", async () => {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(BLOG_API_URL);
     return [...response.data];
   } catch (error) {
     return error.message;

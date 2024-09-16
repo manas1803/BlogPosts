@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addBlog } from "../features/blogs/blogsSlice";
 import { getAllAuthors } from "../features/users/usersSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 const BlogEditor = () => {
   const [title, setTitle] = useState("");
@@ -20,7 +21,7 @@ const BlogEditor = () => {
 
   const authorsOption = authors.map((author) => {
     return (
-      <option key={author.id} value={author.id}>
+      <option key={nanoid()} value={author.id}>
         {author.name}
       </option>
     );
