@@ -18,6 +18,18 @@ export const fetchBlogs = createAsyncThunk("blogs/fetchBlogs", async () => {
   }
 });
 
+export const addNewBlog = createAsyncThunk("blogs/addNewBlog", async (blog) => {
+  try {
+    const response = await axios(BLOG_API_URL, {
+      method: "POST",
+      data: blog,
+    });
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+});
+
 const blogsSlice = createSlice({
   name: "blogLists",
   initialState,
@@ -56,7 +68,7 @@ const blogsSlice = createSlice({
       .addCase(fetchBlogs.fulfilled, (state, action) => {
         state.status = "success";
         let min = 1;
-        
+
         const loadBlogs = action.payload.map((blog) => {
           blog.date = sub(new Date(), { minutes: min++ }).toISOString();
           blog.reactions = {
@@ -67,18 +79,29 @@ const blogsSlice = createSlice({
           };
           return blog;
         });
-        state.blogs = state.blogs.concat(loadBlogs)
+        state.blogs = state.blogs.concat(loadBlogs);
       })
       .addCase(fetchBlogs.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+      })
+      .addCase(addNewBlog.fulfilled, (state, action) => {
+        action.payload.userId = Number(action.payload.userId);
+        action.payload.date = new Date().toISOString();
+        action.payload.reactions = {
+          thumbsUp: 0,
+          clap: 0,
+          heart: 0,
+          thumbsDown: 0,
+        };
+        state.blogs.push(action.payload);
       });
   },
 });
 
 export const getAllBlogs = (state) => state?.blogsList?.blogs;
-export const getBlogStatus = (state)=>state?.blogsList?.status;
-export const getBlogError = (state)=>state?.blogsList?.error
+export const getBlogStatus = (state) => state?.blogsList?.status;
+export const getBlogError = (state) => state?.blogsList?.error;
 
 export const { addBlog, addReactions } = blogsSlice.actions;
 export default blogsSlice.reducer;
