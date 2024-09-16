@@ -2,15 +2,15 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 import React from "react";
 import { Card } from "react-bootstrap";
 
-const BlogCardTimeAgo = ({ timeStamp }) => {
+const BlogCardTimeAgo = ({ date }) => {
   let timeAgo = "";
-  if (timeStamp) {
-    const date = parseISO(timeStamp);
-    const timePeriod = formatDistanceToNow(date);
+  if (date) {
+    const parsedDate = parseISO(date);
+    const timePeriod = formatDistanceToNow(parsedDate);
     timeAgo = `${timePeriod} ago`;
   }
   return (
-    <Card.Text title={timeStamp}>
+    <Card.Text title={date}>
       &nbsp;<i>{timeAgo}</i>
     </Card.Text>
   );

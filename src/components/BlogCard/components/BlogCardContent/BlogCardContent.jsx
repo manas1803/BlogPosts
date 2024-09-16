@@ -1,8 +1,8 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 
-const BlogCardContent = ({ content }) => {
-  return <Card.Text>{content}</Card.Text>;
+const BlogCardContent = ({ body }) => {
+  return <Card.Text>{body}</Card.Text>;
 };
 
 export default BlogCardContent;

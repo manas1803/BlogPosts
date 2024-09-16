@@ -7,14 +7,14 @@ import BlogCardTimeAgo from "./components/BlogCardTimeAgo/BlogCardTimeAgo";
 import BlogReactionButtons from "./components/BlogReactionButtons/BlogReactionButtons";
 
 const BlogCard = ({blog}) => {
-  const { title, content, authorId,timeStamp } = blog
+  const { title, body, authorId,date } = blog
   return (
     <Card style={{ width: "20rem" }}>
       <Card.Body>
         <BlogCardTitle title={title} />
-        <BlogCardContent content={content} />
+        <BlogCardContent body={body} />
         <BlogCardAuthor authorId={authorId} />
-        <BlogCardTimeAgo timeStamp={timeStamp} />
+        <BlogCardTimeAgo date={date} />
         <BlogReactionButtons blog={blog}/>
       </Card.Body>
     </Card>

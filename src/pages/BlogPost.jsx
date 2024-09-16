@@ -1,10 +1,22 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row } from "react-bootstrap";
 import BlogCard from "../components/BlogCard/BlogCard";
-import { getAllBlogs } from "../features/blogs/blogsSlice";
+import {
+  fetchBlogs,
+  getAllBlogs,
+  getBlogStatus,
+} from "../features/blogs/blogsSlice";
 
 const BlogPost = () => {
+  const dispatch = useDispatch();
+  const blogsStatus = useSelector((state) => getBlogStatus(state));
+  useEffect(() => {
+    if (blogsStatus === "idle") {
+      dispatch(fetchBlogs());
+    }
+  }, [fetchBlogs, blogsStatus, dispatch]);
+
   const allBlogs = useSelector((state) => getAllBlogs(state));
   const orderedBlogs = allBlogs
     .slice()
@@ -17,9 +29,7 @@ const BlogPost = () => {
             return (
               <Row key={blog.id}>
                 <Col>
-                  <BlogCard
-                    blog={blog}
-                  />
+                  <BlogCard blog={blog} />
                 </Col>
               </Row>
             );
