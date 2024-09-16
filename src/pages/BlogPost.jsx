@@ -19,16 +19,19 @@ const BlogPost = () => {
   }, [blogsStatus, dispatch]);
 
   const allBlogs = useSelector((state) => getAllBlogs(state));
-  const orderedBlogs = allBlogs
+  const orderedListedBlogs = allBlogs
     .slice()
     .sort((a, b) => b.date.localeCompare(a.date));
+
+  const map = new Map(orderedListedBlogs.map((blog) => [blog.id, blog]));
+  const orderedBlogs = [...map.values()];
   return (
     <>
       <Container>
         {allBlogs &&
           orderedBlogs.map((blog) => {
             return (
-              <Row key={nanoid()}>
+              <Row key={blog.id}>
                 <Col>
                   <BlogCard blog={blog} />
                 </Col>

@@ -6,7 +6,6 @@ import { addReactions } from "../../../../features/blogs/blogsSlice";
 
 const BlogReactionButtons = ({ blog }) => {
   const dispatch = useDispatch();
-
   const reactionButtons = Object.entries(reactionsEmoji).map(
     ([name, emoji]) => {
       return (

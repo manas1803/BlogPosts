@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addBlog } from "../features/blogs/blogsSlice";
+import { addNewBlog } from "../features/blogs/blogsSlice";
 import { getAllAuthors } from "../features/users/usersSlice";
 import { nanoid } from "@reduxjs/toolkit";
 
@@ -9,14 +9,28 @@ const BlogEditor = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [authorId, setAuthorId] = useState("");
+  const [formStatus,setFormStatus] = useState("idle")
 
   const authors = useSelector((state) => getAllAuthors(state));
   const dispatch = useDispatch();
 
+  const isFormValid = !!title && !!content && !!authorId && formStatus==="idle" 
+
   const handleSubmit = () => {
-    dispatch(addBlog(title, content, authorId));
-    setTitle("");
-    setContent("");
+    if(formStatus==="idle"){
+      try{
+        setFormStatus("pending")
+        dispatch(addNewBlog({title, body:content, userId:authorId})).unwrap();
+        setTitle("");
+        setContent("");
+      }
+      catch(error){
+        return error.message
+      }
+      finally{
+        setFormStatus("idle")
+      }
+    }
   };
 
   const authorsOption = authors.map((author) => {
@@ -25,9 +39,7 @@ const BlogEditor = () => {
         {author.name}
       </option>
     );
-  });
-
-  const isFormValid = !!title && !!content && !!authorId 
+  }); 
 
   return (
     <Form>
